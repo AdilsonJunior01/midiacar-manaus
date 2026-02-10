@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MídiaCar Manaus</title>
+
+<style>
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  background-size: cover;
+  background-position: center;
+}
+
+.slide.ativo {
+  display: block;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: black;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SLIDE 1 (IMAGEM) -->
+<div class="slide ativo" style="background-image: url('imagens/imagem1.png');"></div>
+
+<!-- SLIDE 2 (VÍDEO) -->
+<div class="slide">
+  <video
+    src="videos/comercial1.mp4"
+    muted
+    autoplay
+    playsinline
+    preload="auto">
+  </video>
+</div>
+
+<!-- SLIDE 3 (IMAGEM) -->
+<div class="slide" style="background-image: url('imagens/imagem1.png');"></div>
+
+<div class="slide">
+  <video
+    src="videos/Atenção.mp4"
+    muted
+    autoplay
+    playsinline
+    preload="auto">
+  </video>
+</div>
+
+<!-- SLIDE 4 (IMAGEM) -->
+<div class="slide" style="background-image: url('imagens/imagemMP.png');"></div>
+
+<!-- SLIDE 5 (VÍDEO) -->
+<div class="slide">
+  <video
+    src="videos/comercial2.mp4"
+    muted
+    autoplay
+    playsinline
+    preload="auto">
+  </video>
+</div>
+
+<!-- SLIDE 6 (IMAGEM) -->
+<div class="slide" style="background-image: url('imagens/imagemMP.png');"></div>
+
+<div class="slide">
+  <video
+    src="videos/Atenção.mp4"
+    muted
+    autoplay
+    playsinline
+    preload="auto">
+  </video>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let atual = 0;
+
+function mostrar() {
+  slides.forEach(s => s.classList.remove('ativo'));
+
+  const slide = slides[atual];
+  slide.classList.add('ativo');
+
+  const video = slide.querySelector('video');
+  if (video) {
+    video.currentTime = 0;
+    video.play().catch(() => {});
+    video.onended = proximo;
+  } else {
+    setTimeout(proximo, 5000);
+  }
+}
+
+function proximo() {
+  atual = (atual + 1) % slides.length;
+  mostrar();
+}
+
+mostrar();
+</script>
+
+</body>
+</html>
